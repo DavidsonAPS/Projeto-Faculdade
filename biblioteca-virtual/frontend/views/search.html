@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buscar Livros</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header>
+    <h1>Biblioteca Virtual</h1>
+    <nav>
+      <a href="dashboard.html">Meu Painel</a>
+      <a href="search.html">Buscar Livros</a>
+      <a href="#" id="logout">Sair</a>
+    </nav>
+  </header>
+  <main>
+    <form id="searchForm">
+      <input type="text" id="searchQuery" placeholder="Buscar por título, autor, gênero ou ISBN">
+      <button type="submit" class="btn">Buscar</button>
+    </form>
+    <div id="searchResults"></div>
+  </main>
+  <script src="../js/book.js"></script>
+  <script src="../js/auth.js"></script>
+</body>
+</html>

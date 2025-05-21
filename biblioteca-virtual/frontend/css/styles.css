@@ -1,0 +1,146 @@
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  color: #333;
+}
+
+header {
+  background: #2c3e50;
+  color: #fff;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+nav a {
+  color: #fff;
+  text-decoration: none;
+  margin-left: 1rem;
+}
+
+main {
+  padding: 2rem;
+}
+
+.book-card {
+  border: 1px solid #ddd;
+  padding: 1rem;
+  margin: 1rem 0;
+  border-radius: 5px;
+}
+
+.btn {
+  display: inline-block;
+  background: #3498db;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn:hover {
+  background: #2980b9;
+}
+
+form {
+  max-width: 500px;
+  margin: 2rem auto;
+}
+
+input, select {
+  display: block;
+  width: 100%;
+  padding: 0.5rem;
+  margin: 0.5rem 0;
+}
+
+/* Admin styles */
+.admin-panel {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+textarea {
+    width: 100%;
+    min-height: 100px;
+    margin: 0.5rem 0;
+}
+
+/* Book details */
+.book-detail {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .admin-panel {
+        grid-template-columns: 1fr;
+    }
+    
+    header {
+        flex-direction: column;
+    }
+    
+    nav {
+        margin-top: 1rem;
+    }
+}
+
+/* Loan Cards */
+.loan-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    position: relative;
+}
+
+.loan-card.active {
+    border-left: 4px solid #3498db;
+}
+
+.loan-card.returned {
+    border-left: 4px solid #2ecc71;
+    opacity: 0.8;
+}
+
+.loan-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.loan-status {
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.loan-status.active {
+    background-color: #e1f0fa;
+    color: #3498db;
+}
+
+.loan-status.returned {
+    background-color: #e8f8f0;
+    color: #2ecc71;
+}
+
+.loan-details p {
+    margin: 0.25rem 0;
+}
+
+.fine {
+    color: #e74c3c;
+    font-weight: bold;
+}
