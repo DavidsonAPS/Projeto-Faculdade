@@ -105,3 +105,112 @@ function hideLoader(formType) {
     document.getElementById(`${formType}Loader`).style.display = 'none';
     document.querySelector(`#${formType}Form button`).disabled = false;
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Verifica se já está logado
+    checkAuthStatus();
+    
+    // Configura os formulários
+    setupAuthForms();
+});
+
+function checkAuthStatus() {
+    const token = localStorage.getItem('token');
+    if (token && (window.location.pathname.includes('login.html') || 
+                 window.location.pathname.includes('register.html'))) {
+        // Se já logado e está nas páginas de auth, redireciona
+        redirectToDashboard();
+    }
+}
+
+function setupAuthForms() {
+    // Login form
+    const loginForm = document.getElementById('loginForm');
+    if (loginForm) {
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            await handleAuth('login');
+        });
+    }
+    
+    // Register form
+    const registerForm = document.getElementById('registerForm');
+    if (registerForm) {
+        registerForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            await handleAuth('register');
+        });
+    }
+}
+
+async function handleAuth(action) {
+    const formData = {
+        email: document.getElementById('email').value,
+        password: document.getElementById('password').value
+    };
+    
+    if (action === 'register') {
+        formData.name = document.getElementById('name').value;
+    }
+    
+    try {
+        showLoader(action);
+        
+        const res = await fetch(`/api/auth/${action}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(formData)
+        });
+        
+        const data = await res.json();
+        
+        if (!res.ok) {
+            throw new Error(data.message || `${action} failed`);
+        }
+        
+        // Salva o token e redireciona
+        localStorage.setItem('token', data.token);
+        redirectToDashboard();
+        
+    } catch (error) {
+        showError(`${action}Error`, error.message);
+    } finally {
+        hideLoader(action);
+    }
+}
+
+function redirectToDashboard() {
+    // Verifica se é admin (você pode implementar essa lógica conforme sua API)
+    const token = localStorage.getItem('token');
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    
+    if (payload.isAdmin) {
+        window.location.href = 'views/admin.html';
+    } else {
+        window.location.href = 'views/dashboard.html';
+    }
+}
+
+function showLoader(action) {
+    const loader = document.getElementById(`${action}Loader`);
+    if (loader) loader.style.display = 'block';
+    
+    const btn = document.querySelector(`#${action}Form button`);
+    if (btn) btn.disabled = true;
+}
+
+function hideLoader(action) {
+    const loader = document.getElementById(`${action}Loader`);
+    if (loader) loader.style.display = 'none';
+    
+    const btn = document.querySelector(`#${action}Form button`);
+    if (btn) btn.disabled = false;
+}
+
+function showError(elementId, message) {
+    const element = document.getElementById(elementId);
+    if (element) {
+        element.textContent = message;
+        element.style.display = 'block';
+    }
+}
