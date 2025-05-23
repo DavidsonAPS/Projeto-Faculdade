@@ -80,3 +80,28 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
+// Adicione estas funções ao seu auth.js existente
+
+function showError(elementId, message) {
+    const element = document.getElementById(elementId);
+    element.textContent = message;
+    element.style.display = 'block';
+    document.getElementById(elementId.replace('Error', '')).classList.add('error');
+}
+
+function hideError(elementId) {
+    const element = document.getElementById(elementId);
+    element.style.display = 'none';
+    document.getElementById(elementId.replace('Error', '')).classList.remove('error');
+}
+
+function showLoader(formType) {
+    document.getElementById(`${formType}Loader`).style.display = 'block';
+    document.querySelector(`#${formType}Form button`).disabled = true;
+}
+
+function hideLoader(formType) {
+    document.getElementById(`${formType}Loader`).style.display = 'none';
+    document.querySelector(`#${formType}Form button`).disabled = false;
+}
