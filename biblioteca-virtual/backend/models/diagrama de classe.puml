@@ -1,0 +1,89 @@
+@startuml BibliotecaVirtualClassDiagram
+
+' Entidades principais
+class Usuario {
+  + id: Integer
+  + nome: String
+  + email: String
+  + senha: String
+  + isAdmin: Boolean
+}
+
+class Livro {
+  + id: Integer
+  + titulo: String
+  + autor: String
+  + isbn: String
+  + genero: String
+  + quantidade: Integer
+  + descricao: String
+}
+
+class Emprestimo {
+  + id: Integer
+  + dataEmprestimo: Date
+  + dataDevolucao: Date
+  + dataPrevista: Date
+  + status: String
+  + multa: Decimal
+}
+
+class Notificacao {
+  + id: Integer
+  + mensagem: String
+  + tipo: String
+  + lida: Boolean
+}
+
+' Relacionamentos
+Usuario "1" -- "n" Emprestimo
+Livro "1" -- "n" Emprestimo
+Usuario "1" -- "n" Notificacao
+
+' Controladores
+class AuthController {
+  + login()
+  + register()
+  + verifyToken()
+}
+
+class LivroController {
+  + buscarLivros()
+  + detalhesLivro()
+  + adicionarLivro()
+}
+
+class EmprestimoController {
+  + realizarEmprestimo()
+  + devolverLivro()
+  + listarEmprestimos()
+}
+
+class NotificacaoController {
+  + enviarNotificacao()
+  + marcarComoLida()
+}
+
+' Views
+class AuthView {
+  + mostrarFormLogin()
+  + mostrarFormRegistro()
+}
+
+class LivroView {
+  + mostrarListaLivros()
+  + mostrarDetalhesLivro()
+}
+
+class DashboardView {
+  + mostrarPainelUsuario()
+  + mostrarPainelAdmin()
+}
+
+' Relacionamentos MVC
+AuthController --> AuthView
+LivroController --> LivroView
+EmprestimoController --> DashboardView
+NotificacaoController --> DashboardView
+
+@enduml

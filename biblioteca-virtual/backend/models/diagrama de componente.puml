@@ -1,0 +1,26 @@
+@startuml BibliotecaVirtualComponents
+
+package "Frontend" {
+  [Páginas HTML] as HTML
+  [CSS] as CSS
+  [JavaScript] as JS
+}
+
+package "Backend" {
+  [API REST] as API
+  [Controllers] as CTRL
+  [Services] as SRV
+  [Models] as MOD
+}
+
+database "Banco de Dados" as DB {
+  [Tabelas SQL] as TAB
+}
+
+[HTML] --> [API] : Requisições HTTP
+[API] --> [CTRL] : Chama métodos
+[CTRL] --> [SRV] : Lógica de negócio
+[SRV] --> [MOD] : Acesso a dados
+[MOD] --> [TAB] : Consultas SQL
+
+@enduml

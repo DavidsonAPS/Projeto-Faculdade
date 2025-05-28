@@ -1,0 +1,26 @@
+@startuml BibliotecaVirtualUseCase
+
+left to right direction
+actor Usuario as U
+actor Administrador as A
+
+rectangle BibliotecaVirtual {
+  U --> (Fazer Login)
+  U --> (Registrar-se)
+  U --> (Buscar Livros)
+  U --> (Visualizar Detalhes)
+  U --> (Realizar Empréstimo)
+  U --> (Devolver Livro)
+  U --> (Ver Notificações)
+  
+  A --> (Gerenciar Livros)
+  A --> (Gerenciar Usuários)
+  A --> (Gerar Relatórios)
+}
+
+(Realizar Empréstimo) .> (Buscar Livros) : extends
+(Devolver Livro) .> (Visualizar Detalhes) : extends
+(Gerenciar Livros) .> (Adicionar Livro) : includes
+(Gerenciar Livros) .> (Remover Livro) : includes
+
+@enduml

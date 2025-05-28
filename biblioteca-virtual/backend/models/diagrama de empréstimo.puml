@@ -1,0 +1,10 @@
+@startuml LoanStateDiagram
+
+[*] --> Disponivel
+Disponivel --> Emprestado : Usuário empresta
+Emprestado --> Atrasado : Passa data prevista
+Emprestado --> Devolvido : Usuário devolve
+Atrasado --> Devolvido : Usuário devolve
+Devolvido --> Disponivel : Livro retorna
+
+@enduml

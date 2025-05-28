@@ -1,0 +1,29 @@
+@startuml LoanSequenceDiagram
+
+actor Usuario as U
+participant "Frontend" as F
+participant "EmprestimoController" as EC
+participant "LivroService" as LS
+participant "NotificacaoService" as NS
+database BancoDados as BD
+
+U -> F: Clica em "Emprestar"
+F -> EC: POST /api/emprestimos/{id}/emprestar
+EC -> LS: verificarDisponibilidade(livroId)
+LS -> BD: SELECT quantidade FROM livros
+BD --> LS: quantidade
+LS --> EC: disponível
+
+EC -> BD: INSERT INTO emprestimos
+EC -> BD: UPDATE livros SET quantidade = quantidade-1
+BD --> EC: sucesso
+
+EC -> NS: criarNotificacao(emprestimo)
+NS -> BD: INSERT INTO notificacoes
+BD --> NS: idNotificacao
+
+EC --> F: 201 Created
+F -> U: Redireciona para Dashboard
+U -> F: Visualiza notificação
+
+@enduml
